@@ -67,10 +67,9 @@ phi_converge_output_format = \
     phi_old: {:.25f}
     phi_new: {:.25f}"""
 
-def phi_converge():
+def phi_converge(filename = False):
     """Keep calculating higher-order Fibonacci approximations to the golden
     ratio until it stops changing (to floating-point precision)."""
-
     i = 3
     phi_old = phi_approx(i - 1, show_output=False)
     phi_new = phi_approx(i)
@@ -78,7 +77,16 @@ def phi_converge():
         i += 1
         phi_old = phi_new
         phi_new = phi_approx(i, show_output=False)
-        print phi_converge_output_format.format(i, phi_new, phi_old)
-    print "\nConverged to %.25f" % phi_new
+        if filename:
+            filename = 'filename.txt'
+            f = open(filename.txt,'w+')
+            f.write(phi_converge_output_format.format(i, phi_new, phi_old))
+        else:    
+            print phi_converge_output_format.format(i, phi_new, phi_old)
+    if filename:
+        f.write("\nConverged to %.25f" % phi_new)
+        f.close()
+    else:    
+        print "\nConverged to %.25f" % phi_new
 
 if __name__ == '__main__': main()
